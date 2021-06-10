@@ -32,18 +32,6 @@ prechecks() {
         exit 1
     fi
 
-    if [[ -z "${KUBECONFIG}" ]]
-    then
-        echo "KUBECONFIG not set, cannot continue."
-        exit 1
-    fi
-    if [[ ! -e "${KUBECONFIG}" ]]
-    then
-        echo "KUBECONFIG file doesn't exist, can't continue. (KUBECONFIG=${KUBECONFIG})"
-        exit 1
-    fi
-    echo "Using KUBECONFIG=${KUBECONFIG}"
-
     if ! which oc &>/dev/null;
     then
         echo "oc not found, this is unexpected in the CI image. Can't continue."

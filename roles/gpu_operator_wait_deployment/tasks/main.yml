@@ -26,12 +26,12 @@
 - name: Ensure that nvidia-device-plugin-validation Pod has ran successfully
   command:
     oc get pods
-      --field-selector=metadata.name=nvidia-device-plugin-validation,status.phase=Succeeded
+      --field-selector=status.phase=Succeeded
       -n gpu-operator-resources
       -oname --no-headers
   register: has_deviceplugin_validation_pod
   until:
-  - has_deviceplugin_validation_pod.stdout == "pod/nvidia-device-plugin-validation"
+  - has_deviceplugin_validation_pod.stdout | regex_search('pod/nvidia-device-plugin-valid') != ""
   retries: 15
   delay: 60
 

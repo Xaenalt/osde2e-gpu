@@ -13,7 +13,7 @@ COPY build/root /
 # Install openshift-ansible RPMs and some debugging tools
 RUN yum install -y \
 		glibc-langpack-en \
-		go git make jq vim wget rsync \
+		go git make jq vim wget rsync time \
 		python3 python3-devel python3-pip python3-setuptools && \
 	python3 -m pip install --no-cache-dir --upgrade setuptools pip wheel && \
 	python3 -m pip install --no-cache-dir \
@@ -72,3 +72,5 @@ RUN ln -s ${HOME}/toolbox/gpu-operator/must-gather.sh /usr/bin/gpu-operator_gath
 RUN mkdir -p ${HOME}/.ansible/tmp && chmod 777 ${HOME} -R
 
 WORKDIR ${HOME}
+
+CMD e2e/run-tests-and-xml.sh
